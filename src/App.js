@@ -11,6 +11,42 @@ function App() {
 
   const [todos, setTodos] = useState(initialTodoArray);
 
+  function addTodo(todo) {
+    const newTodos = [
+      ...todos,
+      {
+        todo: todo,
+        isCompleted: false,
+        id: uuidv4(),
+      }
+    ]
+    setTodos(newTodos);
+  }
+
+  function removeTodoByID(id) {
+    let newTodos = [...todos];
+
+    newTodos.filter((todo) => todo.id !== id);
+    setTodos(newTodos);
+  }
+
+  function todoDoneByID(id) {
+    let newTodos = [...todos];
+
+    newTodos.map((todo) => {
+      if (todo.id === id && todo.isCompleted) {
+        todo.isCompleted = false;
+          return todo;
+      }
+
+      if (todo.id === id && !todo.isCompleted) {
+        todo.isCompleted = true;
+        return todo;
+      }
+      return todo;
+    })
+    setTodos(newTodos);
+  }
 
   return (
     <div className="App">
